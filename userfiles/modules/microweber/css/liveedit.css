@@ -9,6 +9,8 @@
 
 *********************************************/
 
+#liveedit_wysiwyg{direction: ltr !important;}
+
 html, body {
     min-height: 100%;
     -ms-overflow-style: scrollbar;
@@ -193,6 +195,11 @@ body.mw-live-edit .plain-text {
 .modules-list h5,
 .modules-list h6{
     color: #333;
+}
+
+.modules-list,
+.modules-list li{
+    list-style: none !important;
 }
 
 
@@ -2777,6 +2784,9 @@ div[id*='SSDIVEL'] {
     left: 100px;
 }
 
+.mw-tooltip-insert-module .mw-tooltip-content{
+    max-height: 330px;
+}
 .mw-tooltip-insert-module {
     width: 290px;
     max-width: 100%;
@@ -4121,6 +4131,18 @@ body.dragStart .mw-handle-item.ui-draggable-dragging {
     display: none;
 }
 
+.dynamic-submodule-handle .mw_module_settings_sidebar_icon{
+    margin: 0px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+}
+.mw-handle-menu-item.dynamic-submodule-handle {
+    text-overflow:ellipsis;
+    white-space: normal;
+}
+
+
 .mw-handle-menu-default .mw-handle-menu-item-icon,
 .mw-handle-menu-default .mw-edit-module-settings-tooltip-icon {
     font-size: 19px;
@@ -4646,6 +4668,9 @@ div.element{
     display: flex;
 }
 
+#liveedit_wysiwyg .mw-dropdown{
+    float: none;
+}
 
 
 

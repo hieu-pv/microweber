@@ -457,8 +457,9 @@ mw.getScripts = function (array, callback) {
             }
         }
         else{
-            mw.reload_module(array[0], function(){
-                array.shift();
+            var m = array[0];
+            array.shift();
+            mw.reload_module(m, function(){
                 mw.reload_modules(array, callback, false);
             });
         }
@@ -945,10 +946,9 @@ mw.top = function(){
   var getLastParent = function() {
       var result = window;
       var curr = window;
-      while(curr && mw.tools.canAccessWindow(curr) && curr.mw){
+      while (curr && mw.tools.canAccessWindow(curr) && (curr.mw || curr.parent.mw)){
           result = curr;
           curr = curr.parent;
-
       }
       mw.__top = curr.mw;
       return result.mw;

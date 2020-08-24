@@ -284,6 +284,18 @@ mw.backup_export = {
                     description: 'Export all comments of your website'
                 },
                 {
+                    input: {name: 'export_items', value: 'forms_data,forms_lists,notifications'},
+                    icon: { className: 'mw-icon-app-email'  },
+                    title: 'Export contacts',
+                    description: 'Export all contact lists of your website'
+                },
+                {
+                    input: {name: 'export_items', value: 'forms_data,forms_lists'},
+                    icon: { className: 'mw-icon-post'  },
+                    title: 'Export Posts & Contents',
+                    description: 'Export all posts & contents of your website'
+                },
+                {
                     input: {name: 'export_items', value: ''},
                     icon: { className: 'mw-micon-File-Settings'  },
                     title: 'Export  website settings',
@@ -331,7 +343,8 @@ mw.backup_export = {
                     element:'.js-export-log',
                     action:''
                 }).hide();
-                $('.export-step-4-action').html('Export completed!')
+                $('.export-step-4-action').html('Export completed!');
+                mw.reload_module('admin/backup_v2/manage');
 			} else {
 				mw.backup_export.export_selected(manifest);
 			}
@@ -389,8 +402,30 @@ mw.backup_export = {
 
 	export_fullbackup_start: function() {
         this.exportLog('Generating full backup...');
-        mw.backup_export.export_selected('all&format=' + $('.js-export-format').val() + '&include_media=true');
+
+        var send_uri = 'all&format=' + $('.js-export-format').val() + '&include_media=true';
+
+
+        var include_modules = [];
+        var include_templates = [];
+        $('.js-export-modules:checked').each(function(){
+            include_modules.push(this.value);
+        });
+        $('.js-export-templates:checked').each(function(){
+            include_templates.push(this.value);
+        });
+
+        if (include_modules) {
+            send_uri += '&include_modules=' + include_modules.join(',');
+        }
+
+        if (include_templates) {
+            send_uri += '&include_templates=' + include_templates.join(',');
+        }
+
+        mw.backup_export.export_selected(send_uri);
         mw.backup_export.stepper.last();
+
         $('.export-step-4-action').html('Exporting your content')
 	},
 

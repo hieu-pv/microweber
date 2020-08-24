@@ -56,7 +56,7 @@ var domHelp = {
     },
     parentsOrCurrentOrderMatchOrOnlyFirst: function (node, arr) {
         var curr = node;
-        while (curr !== document.body) {
+        while (curr && curr !== document.body) {
             var h1 = mw.tools.hasClass(curr, arr[0]);
             var h2 = mw.tools.hasClass(curr, arr[1]);
             if (h1 && h2) {
@@ -617,7 +617,7 @@ var domHelp = {
         return _has;
     },
     firstParentWithTag: function (el, tag) {
-        if (!el) return;
+        if (!el || !tag) return;
         tag = typeof tag !== 'string' ? tag : [tag];
         var curr = el.parentNode;
         while (curr && curr !== mwd.body) {
